@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import firebase from "firebase/app";
 import "firebase/auth";
 import firebaseConfig from './firebase.config';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import './SignUp.css';
 import { UserContext } from '../../App';
 
@@ -22,7 +22,6 @@ const SignUp = () => {
         name: "name",
         email: "email",
         password: "password",
-        confirmPassword: "confirm-password",
         error: "",
         success: false
     });
@@ -32,12 +31,11 @@ const SignUp = () => {
         if (event.target.name === "email") {
             isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
         }
-        if (event.target.name === "password") {
+        if (event.target.name === "password" || "confirm-password") {
             const isPasswordValid = event.target.value.length > 6;
             const isPasswordValidNum = /\d{1}/.test(event.target.value);
             isFieldValid = isPasswordValid && isPasswordValidNum;
         }
-
         if (isFieldValid) {
             const newUserInfo = { ...user };
             newUserInfo[event.target.name] = event.target.value;
@@ -53,20 +51,19 @@ const SignUp = () => {
     const provider = new firebase.auth.GoogleAuthProvider();
 
     const handleSignIn = () => {
-        firebase.auth()
-            .signInWithPopup(provider)
+        firebase.auth().signInWithPopup(provider)
             .then((result) => {
                 const { displayName, email } = result.user
                 const signIn = {
                     isSignIn: true,
                     name: displayName,
-                    email: email,
-
+                    email: email
                 }
                 setUser(signIn);
                 setLoggedInUser(signIn);
                 history.replace(from);
-            }).catch((error) => {
+            })
+            .catch((error) => {
                 var errorMessage = error.message;
             });
     }
@@ -111,11 +108,12 @@ const SignUp = () => {
     return (
         <div className="container">
             <div className="row mt-5">
-                <div  className="col-md-6 offset-md-3">
+                <div className="col-md-6 offset-md-3">
+                    <p style={{ color: 'red' }}>{user.error}</p>
+                    {user.success && <p style={{ color: 'green' }}>Account {newUser ? "Create" : "logged In"} Successfully</p>}
                     <form style={{ border: '1px solid goldenRod', padding: '20px', borderRadius: '5px' }} onSubmit={handleSubmit}>
                         {newUser ? <h2>Create Account</h2> : <h2>Log In</h2>}
-                        <p style={{ color: 'red' }}>{user.error}</p>
-                        {user.success && <p style={{ color: 'green' }}>Account {newUser ? "Create" : "logged In"} Successfully</p>}
+
                         {newUser &&
                             <div className="form-group">
                                 <input type="text" name="name" className="form-control" id="" placeholder="Enter Your Name" required />
@@ -142,7 +140,7 @@ const SignUp = () => {
                     </form>
                     <p className="text-center mt-3">OR</p>
                     <div className="mb-5">
-                        <input onClick={handleSignIn} className="google" type="button" value="Login in With Google" />
+                        <input onClick={handleSignIn} className="google" type="button" value="Login With Google" />
                     </div>
                 </div>
             </div>

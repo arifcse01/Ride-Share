@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import {
@@ -10,7 +10,6 @@ import {
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import Destination from './components/Destination/Destination';
-import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import { createContext, useState } from 'react';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
