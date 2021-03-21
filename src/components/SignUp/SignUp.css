@@ -1,0 +1,21 @@
+.account{
+    width: 100%;
+    text-align: center;
+    background: #f8793f;
+    border: orangered;
+    padding: 10px;
+    color: #ffff;
+    margin: 10px auto;
+}
+.google{
+    width: 100%;
+    border: 1px solid #f8793f;
+    border-radius: 20px;
+    background: white;
+    padding: 10px;
+    margin-top: 20px;
+}
+.google:hover{
+    background: orangered;
+    color: white;
+}
