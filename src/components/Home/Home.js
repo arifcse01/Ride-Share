@@ -13,7 +13,7 @@ const Home = (props) => {
     return (
         <div className="banner">
             <div className="container">
-            <div className="row">
+            <div className="row rides">
                 {
                     newRides.map(ride => <Cart ride={ride} key={ride.id}></Cart>)
                 }

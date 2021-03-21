@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import data from '../../data/data.json';
 import images from '../../images/Map.png';
+
 const Destination = (props) => {
     const { rideId } = useParams();
     const [user, setUser] = useState({
@@ -29,8 +30,9 @@ const Destination = (props) => {
         width: '50px',
         marginRight: '10px'
     }
+
     const style = {
-        width: '100%',
+        
         border: '1px solid gray',
         borderRadius: '5px',
         boxShadow: '10px 10px 10px white',
@@ -40,13 +42,22 @@ const Destination = (props) => {
         padding: '5px'
     }
 
-    const destination ={
+    const destination = {
         border: '1px solid goldenrod',
         borderRadius: '5px',
-        boxShadow: '15px 15px 10px white',
+        boxShadow: '15px 15px 15px gray',
         background: 'white',
         padding: '10px',
-        margin: '10px 0'
+        height: '350px',
+        width: '100%'  
+    }
+
+    const distance ={
+        background: 'green', 
+        boxShadow: '10px 10px 10px white', 
+        borderRadius: '5px', 
+        color: 'white', 
+        padding: '5px'
     }
 
 
@@ -56,56 +67,59 @@ const Destination = (props) => {
                 <div className="row mt-3">
 
                     {
-                        isShowed && (
+                        isShowed ? (
 
-                            <div style={destination} className="col-md-3 text-center">
-                                <div>
+                            <div  className="col-md-4 col col-sm-12 text-center mt-3 ">
+                                <div style={destination} className='mr-2'>
+                                <div style={distance}>
                                     <p>{user.from}</p>
                                     <p>To</p>
                                     <p>{user.to}</p>
                                 </div>
                                 <div style={style} className="d-flex justify-content-between align-items-center">
                                     <img style={img} src={image} alt="" />
-                                    <h5 className="me-3">{category}</h5>
+                                    <h5>{category}</h5>
                                     <p>${cost}</p>
                                 </div>
                                 <div style={style} className="d-flex justify-content-between align-items-center">
                                     <img style={img} src={image} alt="" />
-                                    <h5 className="me-3">{category}</h5>
+                                    <h5>{category}</h5>
                                     <p>${cost}</p>
                                 </div>
                                 <div style={style} className="d-flex justify-content-between align-items-center">
                                     <img style={img} src={image} alt="" />
-                                    <h5 className="me-3">{category}</h5>
+                                    <h5>{category}</h5>
                                     <p>${cost}</p>
+                                </div>
                                 </div>
                             </div>
-                        )
+
+                        ) :
+                            <div className="col-md-4 col-12">
+                                <form onSubmit={handleSearch}>
+                                    <div class="form-group">
+                                        <label for="name">Pick From</label>
+                                        <input onBlur={handleBlur} type="text" name="from" className="form-control" id="name" placeholder="Mirpur 1" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">Pick To</label>
+                                        <input onBlur={handleBlur} type="text" name="to" className="form-control" id="text" placeholder="Dhanmondi" required />
+                                    </div>
+                                    <div>
+                                        <input className="account" type="Submit" value="Search" />
+                                    </div>
+                                </form>
+                            </div>
                     }
-                    
-                </div>
-                <div className="row mt-5">
-                    <div className="col-md-3">
-                        <form onSubmit={handleSearch} className="search">
-                            <div class="form-group">
-                                <label for="name">Pick From</label>
-                                <input onBlur={handleBlur} type="text" name="from" className="form-control" id="name" placeholder="Mirpur 1" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="text">Pick To</label>
-                                <input onBlur={handleBlur} type="text" name="to" className="form-control" id="text" placeholder="Dhanmondi" required />
-                            </div>
-                            <div>
-                                <input className="account" type="Submit" value="Search" />
-                            </div>
-                        </form>
-                    </div>
-                    <div className="col-md-9 pl-5">
-                        <div>
-                            <img style={{height: '500px'}} src={images} alt=""/>
+                   
+                    <div className="col-md-8 col-12">
+                        <div className="p-3">
+                            <img style={{ height: '400px', width: '100%', marginLeft: '10px' }} src={images} alt="" />
                         </div>
-                    </div>
+                    </div>                
+
                 </div>
+                
             </div>
         </div>
     );

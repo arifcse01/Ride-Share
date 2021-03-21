@@ -28,7 +28,6 @@ const SignUp = () => {
     });
 
     const handleBlur = (event) => {
-        // console.log(event.target.name, event.target.value)
         let isFieldValid = true;
         if (event.target.name === "email") {
             isFieldValid = /\S+@\S+\.\S+/.test(event.target.value);
@@ -46,7 +45,7 @@ const SignUp = () => {
         }
     }
 
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext); 
+    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
     const history = useHistory();
     const location = useLocation();
     let { from } = location.state || { from: { pathname: "/" } };
@@ -61,12 +60,14 @@ const SignUp = () => {
                 const signIn = {
                     isSignIn: true,
                     name: displayName,
-                    email: email
+                    email: email,
+
                 }
                 setUser(signIn);
+                setLoggedInUser(signIn);
+                history.replace(from);
             }).catch((error) => {
                 var errorMessage = error.message;
-
             });
     }
 
@@ -110,17 +111,16 @@ const SignUp = () => {
     return (
         <div className="container">
             <div className="row mt-5">
-                <div className="col-md-6 offset-md-3">
-                    {newUser ? <h2>Create Account</h2> : <h2>Log In</h2>}
-                    <p style={{ color: 'red' }}>{user.error}</p>
-                    {user.success && <p style={{ color: 'green' }}>Account {newUser ? "Create" : "logged In"} Successfully</p>}
-                    <form onSubmit={handleSubmit}>
+                <div  className="col-md-6 offset-md-3">
+                    <form style={{ border: '1px solid goldenRod', padding: '20px', borderRadius: '5px' }} onSubmit={handleSubmit}>
+                        {newUser ? <h2>Create Account</h2> : <h2>Log In</h2>}
+                        <p style={{ color: 'red' }}>{user.error}</p>
+                        {user.success && <p style={{ color: 'green' }}>Account {newUser ? "Create" : "logged In"} Successfully</p>}
                         {newUser &&
                             <div className="form-group">
                                 <input type="text" name="name" className="form-control" id="" placeholder="Enter Your Name" required />
                             </div>
                         }
-
                         <div className="form-group">
                             <input onBlur={handleBlur} type="email" name="email" className="form-control" id="" placeholder="Enter Email" required />
                         </div>
@@ -136,7 +136,7 @@ const SignUp = () => {
                         }
 
                         <input type="checkbox" onChange={() => setNewUser(!newUser)} name="newUser" id="" />
-                        <label htmlFor="newUser">Don't have an account?</label>
+                        <label htmlFor="newUser"> Don't have an account?</label>
                         <input className="account" type="submit" value={newUser ? "Create an Account" : "Log In"} />
 
                     </form>

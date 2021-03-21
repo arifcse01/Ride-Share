@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Header.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import header from '../../images/Bg.png';
-import Home from '../Home/Home';
 import { Link, useHistory } from 'react-router-dom';
 
 const Header = () => {
@@ -17,7 +15,7 @@ const Header = () => {
         <div>
             <nav className="navbar navbar-expand-lg navbar-light ">
                 <div className="container">
-                    <a className="navbar-brand" href="#">Ride Share</a>
+                    <a className="navbar-brand" href="#"><h2 style={{color: 'green'}}>Amazing Riders</h2></a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -28,7 +26,7 @@ const Header = () => {
                                 <Link className="nav-link active" aria-current="page" to="/home">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="destination">Destination</Link>
+                                <Link className="nav-link" to="#">Destination</Link>
                             </li>
                             <li class="nav-item">
                                 <Link className="nav-link" to="#">Blog</Link>
